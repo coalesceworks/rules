@@ -1,0 +1,1319 @@
+package com.umgi.es.pubsub.drools;
+
+import com.umgi.es.pubsub.drools.EnterpriseMessageRoute;
+import com.umgi.es.pubsub.drools.EnterpriseMessageRouteProps;
+import java.util.List;
+
+global org.mule.module.bpm.MessageService mule;
+
+rule "aic.physicalassetmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aic" && p.resourceName == "physicalassetmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "aspen.ingestresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "ingestresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "aspen.fulfillmentresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "fulfillmentresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "aspen.digitalassetupdateresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdateresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "aspen.digitalassetupdatenotificationmessage.AllNamespaces.raw (filtered 0)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdatenotificationmessage" && p.msgVariant == "raw" && (p.ReplyTo == "studiohub"))
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+end
+
+rule "aspen.digitalassetmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+end
+
+rule "aspen.digitalassetupdatenotificationmessage.AllNamespaces.raw (filtered 1)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdatenotificationmessage" && p.msgVariant == "raw" && (p.ReplyTo == "rws"))
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "bitmax.bam.resourceavailabilitynotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "bitmax.bam" && p.resourceName == "resourceavailabilitynotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_zeus_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber_qa","","");
+end
+
+rule "bitmax.bam2.resourceavailabilitynotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "bitmax.bam2" && p.resourceName == "resourceavailabilitynotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber_qa","","");
+end
+
+rule "dartaggregator.dartcprsreleaseschedule.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "dartaggregator" && p.resourceName == "dartcprsreleaseschedule" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_dart_subscriber","","true");
+end
+
+rule "datalake.filemanifestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "datalake" && p.resourceName == "filemanifestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_datalake_subscriber","","true");
+end
+
+rule "datalake.filemanifestgroupmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "datalake" && p.resourceName == "filemanifestgroupmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_datalake_subscriber","","true");
+end
+
+rule "digiplug.anthologic.resourceavailabilitynotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "digiplug.anthologic" && p.resourceName == "resourceavailabilitynotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_aspen_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber_qa","","");
+end
+
+rule "digiplug.anthologic.releasestatusnotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "digiplug.anthologic" && p.resourceName == "releasestatusnotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_gps_firstorder_subscriber","gps_releasestatusnotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","gps_releasestatusnotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","gps_releasestatusnotificationmapper","");
+end
+
+rule "digiplug.anthologic.releasestatusnotification.AllNamespaces.raw (filtered 2)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "digiplug.anthologic" && p.resourceName == "releasestatusnotification" && p.msgVariant == "raw" && (p.RSN_Status == "ordered"))
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","gps_releasestatusnotificationmapper","");
+end
+
+rule "digiplug.anthologic.releaseorderednotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "digiplug.anthologic" && p.resourceName == "releaseorderednotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_gps_firstorder_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","releasestatusmapper_releaseordered2releasestatus","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","releasestatusmapper_releaseordered2releasestatus","");
+end
+
+rule "digiplug.anthologic.marketingandlegalrestrictionsnotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "digiplug.anthologic" && p.resourceName == "marketingandlegalrestrictionsnotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("bitmax_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_mlr_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_mlr_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("umg_australia_subscriber","","");
+end
+
+rule "digiplug.anthologic.internationalmarketingandlegalrestrictionsnotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "digiplug.anthologic" && p.resourceName == "internationalmarketingandlegalrestrictionsnotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_gps_imlr_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "gps.globalresourcepricemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gps" && p.resourceName == "globalresourcepricemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_disco_pricing_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+$enterpriseMessageRoute.addRoute("umg_dsc_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_disco_pricing_subscriber_demo","","true");
+end
+
+rule "gps.globalreleasepricemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gps" && p.resourceName == "globalreleasepricemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_disco_pricing_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+$enterpriseMessageRoute.addRoute("umg_dsc_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_disco_pricing_subscriber_demo","","true");
+end
+
+rule "gta.carrier.http://schemas.umusic.com/servicemarket/ohi_gta_carrier_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "carrier" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_carrier_1_detail/19570825" && p.DocumentName == "ohi_gta_carrier_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_carriermapper","");
+end
+
+rule "gta.companyaccount.http://schemas.umusic.com/servicemarket/ohi_gta_companyaccount_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "companyaccount" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_companyaccount_1_detail/19570825" && p.DocumentName == "ohi_gta_companyaccount_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_companyaccountmapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_companyaccountmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_companyaccountmapper","");
+end
+
+rule "gta.configuration.http://schemas.umusic.com/servicemarket/ohi_gta_configuration_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "configuration" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_configuration_1_detail/19570825" && p.DocumentName == "ohi_gta_configuration_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_configurationmapper","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_configurationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_configurationmapper","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","gta_configurationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_configurationmapper","");
+$enterpriseMessageRoute.addRoute("umg_gch_gta_subscriber","gta_configurationmapper","true");
+end
+
+rule "gta.country.http://schemas.umusic.com/servicemarket/ohi_gta_country_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "country" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_country_1_detail/19570825" && p.DocumentName == "ohi_gta_country_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_countrymapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_countrymapper","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_countrymapper","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","gta_countrymapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_countrymapper","");
+$enterpriseMessageRoute.addRoute("umg_gch_gta_subscriber","gta_countrymapper","true");
+$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_country_raw_mapper","true");
+end
+
+rule "gta.currency.http://schemas.umusic.com/servicemarket/ohi_gta_currency_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "currency" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_currency_1_detail/19570825" && p.DocumentName == "ohi_gta_currency_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_currencymapper","");
+$enterpriseMessageRoute.addRoute("umg_gch_gta_subscriber","gta_currencymapper","true");
+end
+
+rule "gta.parentterritory.http://schemas.umusic.com/servicemarket/ohi_gta_parentterritory_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "parentterritory" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_parentterritory_1_detail/19570825" && p.DocumentName == "ohi_gta_parentterritory_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_parentterritorymapper","");
+end
+
+rule "gta.territory.http://schemas.umusic.com/servicemarket/ohi_gta_territory_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "territory" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_territory_1_detail/19570825" && p.DocumentName == "ohi_gta_territory_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_territorymapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_territorymapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_territory_raw_mapper","true");
+end
+
+rule "gta.territoryarea.http://schemas.umusic.com/servicemarket/ohi_gta_territoryarea_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "territoryarea" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_territoryarea_1_detail/19570825" && p.DocumentName == "ohi_gta_territoryarea_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_territoryareamapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_territoryareamapper","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_territoryareamapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_territoryareamapper","");
+end
+
+rule "gta.territorycountry.http://schemas.umusic.com/servicemarket/ohi_gta_territorycountry_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "territorycountry" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_territorycountry_1_detail/19570825" && p.DocumentName == "ohi_gta_territorycountry_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_territorycountrymapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_territorycountrymapper","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_territorycountrymapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_territorycountrymapper","");
+$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_territorycountry_raw_mapper","true");
+end
+
+rule "gto.company.http://schemas.umusic.com/servicemarket/ohi_gto_company_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gto" && p.resourceName == "company" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gto_company_1_detail/19570825" && p.DocumentName == "ohi_gto_company_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_companymapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_companymapper","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_companymapper","");
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","gta_companymapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_companymapper","");
+$enterpriseMessageRoute.addRoute("umg_gch_gta_subscriber","gta_companymapper","true");
+$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_company_raw_mapper","true");
+end
+
+rule "gto.companydivision.http://schemas.umusic.com/servicemarket/ohi_gto_companydivision_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gto" && p.resourceName == "companydivision" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gto_companydivision_1_detail/19570825" && p.DocumentName == "ohi_gto_companydivision_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_companydivisionmapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_companydivisionmapper","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_companydivisionmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_companydivisionmapper","");
+$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_companydivision_raw_mapper","true");
+end
+
+rule "gto.divisionlabel.http://schemas.umusic.com/servicemarket/ohi_gto_divisionlabel_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gto" && p.resourceName == "divisionlabel" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gto_divisionlabel_1_detail/19570825" && p.DocumentName == "ohi_gto_divisionlabel_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_divisionlabelmapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_divisionlabelmapper","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_divisionlabelmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_divisionlabelmapper","");
+$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_divisionlabel_raw_mapper","true");
+end
+
+rule "gto.family.http://schemas.umusic.com/servicemarket/ohi_gto_family_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gto" && p.resourceName == "family" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gto_family_1_detail/19570825" && p.DocumentName == "ohi_gto_family_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_familymapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_familymapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_familymapper","");
+end
+
+rule "gto.familycompany.http://schemas.umusic.com/servicemarket/ohi_gto_familycompany_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gto" && p.resourceName == "familycompany" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gto_familycompany_1_detail/19570825" && p.DocumentName == "ohi_gto_familycompany_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_familycompanymapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_familycompanymapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_familycompanymapper","");
+end
+
+rule "gto.label.http://schemas.umusic.com/servicemarket/ohi_gto_label_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gto" && p.resourceName == "label" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gto_label_1_detail/19570825" && p.DocumentName == "ohi_gto_label_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_labelmapper","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_labelmapper","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_labelmapper","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","gta_labelmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_labelmapper","");
+$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_label_raw_mapper","true");
+end
+
+rule "gto.company.AllNamespaces.emasis"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gto" && p.resourceName == "company" && p.msgVariant == "emasis")
+then
+$enterpriseMessageRoute.addRoute("umg_eai_subscriber","gta_companymapper","");
+end
+
+rule "hits.hitstranslationmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "hits" && p.resourceName == "hitstranslationmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_rdw_subscriber","","true");
+end
+
+rule "ingrooves.indma.releaseorderednotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "ingrooves.indma" && p.resourceName == "releaseorderednotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_gps_firstorder_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","releasestatusmapper_releaseordered2releasestatus","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","releasestatusmapper_releaseordered2releasestatus","");
+end
+
+rule "ingrooves.indma.releasestatusnotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "ingrooves.indma" && p.resourceName == "releasestatusnotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","gps_releasestatusnotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_gps_firstorder_subscriber","gps_releasestatusnotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","gps_releasestatusnotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","gps_releasestatusnotificationmapper","");
+end
+
+rule "ingrooves.indma.resourceavailabilitynotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "ingrooves.indma" && p.resourceName == "resourceavailabilitynotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_zeus_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_aspen_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber","resourceavailablenotificationmapper_v2tov3_halindmatoaspenhercules","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber_qa","resourceavailablenotificationmapper_v2tov3_halindmatoaspenhercules","");
+end
+
+rule "ingrooves.zeus.releaseorderednotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "ingrooves.zeus" && p.resourceName == "releaseorderednotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_gps_firstorder_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","releasestatusmapper_releaseordered2releasestatus","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","releasestatusmapper_releaseordered2releasestatus","");
+end
+
+rule "ingrooves.zeus.releasestatusnotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "ingrooves.zeus" && p.resourceName == "releasestatusnotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_gps_firstorder_subscriber","gps_releasestatusnotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","gps_releasestatusnotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","gps_releasestatusnotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","gps_releasestatusnotificationmapper","");
+end
+
+rule "metadataservices.releaseregistrationresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "metadataservices" && p.resourceName == "releaseregistrationresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "metadataservices.resourceregistrationresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "metadataservices" && p.resourceName == "resourceregistrationresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo_1","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_qa_1","","true");
+end
+
+rule "metadataservices.defaultreleasepricingresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "metadataservices" && p.resourceName == "defaultreleasepricingresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "metadataservices.r2releasenotificationmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "metadataservices" && p.resourceName == "r2releasenotificationmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+end
+
+rule "metadataservices.audioregistrationresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "metadataservices" && p.resourceName == "audioregistrationresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "metadataservices.imageregistrationresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "metadataservices" && p.resourceName == "imageregistrationresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "rpm.releaseregistrationrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "rpm" && p.resourceName == "releaseregistrationrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "rws.imageregistrationrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "rws" && p.resourceName == "imageregistrationrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "sonydadc.umgpartnerdelivery.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "umgpartnerdelivery" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+end
+
+rule "sonydadc.umgpartnerprofile.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "umgpartnerprofile" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+end
+
+rule "sonydadc.ddexnewreleasemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "ddexnewreleasemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+end
+
+rule "sonydadc.partnerprofilemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "partnerprofilemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+$enterpriseMessageRoute.addRoute("umg_gps_rest_subscriber","","true");
+end
+
+rule "sonydadc.supplychainstatusmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "supplychainstatusmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+end
+
+rule "studiohub.grscontractrightsload.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "grscontractrightsload" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber_qa","","");
+end
+
+rule "studiohub.dealoperatingparametersmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "dealoperatingparametersmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "studiohub.fulfillmentrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "fulfillmentrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_aspen_rest_subscriber","","true");
+end
+
+rule "studiohub.digitalassetupdaterequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "digitalassetupdaterequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_aspen_rest_subscriber","","true");
+end
+
+rule "studiohub.dealproductroyaltyprovisionsmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "dealproductroyaltyprovisionsmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_globalroyalties_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_rdw_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_globalroyalties_subscriber_dev","","true");
+end
+
+rule "studiohub.defaultreleasepricingrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "defaultreleasepricingrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "studiohub.resourceregistrationrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "resourceregistrationrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "studiohub.dealcontractuallanguagemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "dealcontractuallanguagemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_rdw_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_globalroyalties_subscriber","","true");
+end
+
+rule "studiohub.audioregistrationrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "audioregistrationrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "umg.r2.talent.http://schemas.umusic.com/servicemarket/ohi_umg.r2_talent_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "talent" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_talent_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_talent_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcstraining_subscriber","","");
+end
+
+rule "umg.atlas.artistrosterproject.http://schemas.umusic.com/servicemarket/ohi_umg.atlas_artistrosterproject_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.atlas" && p.resourceName == "artistrosterproject" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.atlas_artistrosterproject_1_detail/19570825" && p.DocumentName == "ohi_umg.atlas_artistrosterproject_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "umg.atlas.entitylabel.http://schemas.umusic.com/servicemarket/ohi_umg.atlas_entitylabel_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.atlas" && p.resourceName == "entitylabel" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.atlas_entitylabel_1_detail/19570825" && p.DocumentName == "ohi_umg.atlas_entitylabel_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "umg.blue.resourcedurationupdatenotification.http://schemas.umusic.com/servicemarket/ohi_umg.blue_resourcedurationupdatenotification_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.blue" && p.resourceName == "resourcedurationupdatenotification" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.blue_resourcedurationupdatenotification_1_detail/19570825" && p.DocumentName == "ohi_umg.blue_resourcedurationupdatenotification_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+end
+
+rule "umg.blue.japancompanynotification.http://schemas.umusic.com/servicemarket/ohi_umg.blue_japancompanynotification_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.blue" && p.resourceName == "japancompanynotification" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.blue_japancompanynotification_1_detail/19570825" && p.DocumentName == "ohi_umg.blue_japancompanynotification_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+end
+
+rule "umg.cla.cartupdatenotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cla" && p.resourceName == "cartupdatenotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","","");
+end
+
+rule "umg.cla.workcertifiednotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cla" && p.resourceName == "workcertifiednotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_cla_subscriber","","");
+end
+
+rule "umg.cla.talentnamechangenotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cla" && p.resourceName == "talentnamechangenotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_cla_subscriber","","");
+end
+
+rule "umg.cla.publishernamechangenotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cla" && p.resourceName == "publishernamechangenotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_cla_subscriber","","");
+end
+
+rule "umg.contraxx.grscontractrightsload.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.contraxx" && p.resourceName == "grscontractrightsload" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+end
+
+rule "umg.cprs.billofmaterials.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_billofmaterials_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "billofmaterials" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_billofmaterials_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_billofmaterials_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sony_dadc_manufacturing","","");
+$enterpriseMessageRoute.addRoute("umg_jda_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_ods_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_berlin_cprs_bom_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_uk_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sap_cprs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sony_dadc_distribution","","");
+$enterpriseMessageRoute.addRoute("umg_sap_cprs_subscriber_qa","","");
+end
+
+rule "umg.cprs.physicalreleaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicalreleaseschedule_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "physicalreleaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicalreleaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_physicalreleaseschedule_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_ods_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_rdx_cprs_prs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sony_dadc_manufacturing","","");
+$enterpriseMessageRoute.addRoute("umg_australia_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_uk_subscriber","","");
+end
+
+rule "umg.cprs.physicalreleaseschedulev3.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicalreleaseschedulev3_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "physicalreleaseschedulev3" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicalreleaseschedulev3_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_physicalreleaseschedulev3_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_berlin_cprs_prs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_jda_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sony_dadc_distribution","","");
+$enterpriseMessageRoute.addRoute("umg_sap_cprs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sap_cprs_subscriber_qa","","");
+end
+
+rule "umg.cprs.territorialrights.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_territorialrights_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "territorialrights" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_territorialrights_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_territorialrights_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_ods_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_jda_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_rdx_cprs_tr_subscriber","","");
+end
+
+rule "umg.cprs.nationalreleaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_nationalreleaseschedule_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "nationalreleaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_nationalreleaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_nationalreleaseschedule_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "umg.cprs.physicaltrackedparts.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicaltrackedparts_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "physicaltrackedparts" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicaltrackedparts_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_physicaltrackedparts_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "umg.cprs.partstracking.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_partstracking_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "partstracking" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_partstracking_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_partstracking_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "umg.cprs.workflow.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_workflow_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "workflow" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_workflow_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_workflow_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "umg.dav.marketingtermspartnerproductupdatenotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dav" && p.resourceName == "marketingtermspartnerproductupdatenotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_gdrs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_centralcatalogue_marketing_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_mktgpartner_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_mktgpartner_subscriber_qa","","");
+end
+
+rule "umg.dav.marketingtermsproductupdatenotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dav" && p.resourceName == "marketingtermsproductupdatenotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_gdrs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_mktgproduct_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_mktgproduct_subscriber_qa","","");
+end
+
+rule "sonydadc.releaseorderednotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "releaseorderednotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_gps_firstorder_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","releasestatusmapper_releaseordered2releasestatus","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","releasestatusmapper_releaseordered2releasestatus","");
+end
+
+rule "umg.dsched.releaselegalrights.http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaselegalrights_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dsched" && p.resourceName == "releaselegalrights" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaselegalrights_1_detail/19570825" && p.DocumentName == "ohi_umg.dsched_releaselegalrights_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_rdx_digs_rlr_subscriber","","");
+end
+
+rule "umg.dsched.releaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dsched" && p.resourceName == "releaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.dsched_releaseschedule_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_dsc_digs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_aspen_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_berlin_digs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_rdx_digs_rs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_uk_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_cla_subscriber","","");
+$enterpriseMessageRoute.addRoute("bitmax_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_centralcatalogue_digs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_catalyst_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_australia_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+end
+
+rule "umg.dsched.releaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825.pubsubwrapped (filtered 3)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dsched" && p.resourceName == "releaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.dsched_releaseschedule_1_detail" && p.msgVariant == "pubsubwrapped" && (p.DschedProductConfiguration == 133 || p.DschedProductConfiguration == 126 || p.DschedProductConfiguration == 159 || p.DschedProductConfiguration == 160 || p.DschedProductConfiguration == 161 || p.DschedProductConfiguration == 139 || p.DschedProductConfiguration == 145 || p.DschedProductConfiguration == 152 || p.DschedProductConfiguration == 127 || p.DschedProductConfiguration == 164))
+then
+$enterpriseMessageRoute.addRoute("umg_mobileproxy_digs_subscriber","","");
+end
+
+rule "umg.dsched.releaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825.pubsubwrapped (filtered 4)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dsched" && p.resourceName == "releaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.dsched_releaseschedule_1_detail" && p.msgVariant == "pubsubwrapped" && (p.DschedProductConfiguration != 126 && p.DschedProductConfiguration != 127 && p.DschedProductConfiguration != 133 && p.DschedProductConfiguration != 135 && p.DschedProductConfiguration != 136 && p.DschedProductConfiguration != 137 && p.DschedProductConfiguration != 139 && p.DschedProductConfiguration != 145 && p.DschedProductConfiguration != 151 && p.DschedProductConfiguration != 152 && p.DschedProductConfiguration != 159 && p.DschedProductConfiguration != 160 && p.DschedProductConfiguration != 161 && p.DschedProductConfiguration != 164))
+then
+$enterpriseMessageRoute.addRoute("umg_gps_digs_subscriber","","");
+end
+
+rule "umg.dsched.releaseschedule.AllNamespaces.emasis"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dsched" && p.resourceName == "releaseschedule" && p.msgVariant == "emasis")
+then
+$enterpriseMessageRoute.addRoute("umg_eai_subscriber","","");
+end
+
+rule "umg.dsched.releaseschedule.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dsched" && p.resourceName == "releaseschedule" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "umg.fulfilment.digital_partner.http://schemas.umusic.com/servicemarket/ohi_umg.fulfilment_digital_partner_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.fulfilment" && p.resourceName == "digital_partner" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.fulfilment_digital_partner_1_detail/19570825" && p.DocumentName == "ohi_umg.fulfilment_digital_partner_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_gps_digitalpartner_subscriber","","");
+end
+
+rule "umg.grcs.resourcerights.http://schemas.umusic.com/servicemarket/ohi_umg.grcs_resourcerights_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.grcs" && p.resourceName == "resourcerights" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.grcs_resourcerights_1_detail/19570825" && p.DocumentName == "ohi_umg.grcs_resourcerights_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_cla_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_adam_subscriber","","");
+end
+
+rule "umg.grcs.releaserights.http://schemas.umusic.com/servicemarket/ohi_umg.grcs_releaserights_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.grcs" && p.resourceName == "releaserights" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.grcs_releaserights_1_detail/19570825" && p.DocumentName == "ohi_umg.grcs_releaserights_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_cla_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_grs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_grs_subscriber_qa","","");
+end
+
+rule "umg.grcs.trackrights.http://schemas.umusic.com/servicemarket/ohi_umg.grcs_trackrights_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.grcs" && p.resourceName == "trackrights" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.grcs_trackrights_1_detail/19570825" && p.DocumentName == "ohi_umg.grcs_trackrights_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","","");
+end
+
+rule "umg.grcs.resourcerights.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.grcs" && p.resourceName == "resourcerights" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+end
+
+rule "umg.grcs.trackrights.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.grcs" && p.resourceName == "trackrights" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+end
+
+rule "umg.gta.financiallabel.AllNamespaces.emasis"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.gta" && p.resourceName == "financiallabel" && p.msgVariant == "emasis")
+then
+$enterpriseMessageRoute.addRoute("umg_eai_subscriber","gta_financiallabelmapper","");
+end
+
+rule "umg.gta.hfmrepertoireowner.AllNamespaces.emasis"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.gta" && p.resourceName == "hfmrepertoireowner" && p.msgVariant == "emasis")
+then
+$enterpriseMessageRoute.addRoute("umg_eai_subscriber","repertoireownermapper","");
+end
+
+rule "umg.hal.resourceavailabilitynotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.hal" && p.resourceName == "resourceavailabilitynotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_mobileproxy_resourceavailability_subscriber","resourceavailablenotificationmapper_v2tov3","");
+$enterpriseMessageRoute.addRoute("umg_zeus_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber","resourceavailablenotificationmapper_v2tov3_halindmatoaspenhercules","");
+$enterpriseMessageRoute.addRoute("umg_resourcepreviewer_tulsa_subscriber1","","");
+$enterpriseMessageRoute.addRoute("umg_resourcepreviewer_tulsa_subscriber2","","");
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber_qa","resourceavailablenotificationmapper_v2tov3_halindmatoaspenhercules","");
+end
+
+rule "umg.mediaportal.panddmarketingterms.http://schemas.umusic.com/servicemarket/ohi_umg.mediaportal_panddmarketingterms_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.mediaportal" && p.resourceName == "panddmarketingterms" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.mediaportal_panddmarketingterms_1_detail/19570825" && p.DocumentName == "ohi_umg.mediaportal_panddmarketingterms_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_pandd_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_pandd_subscriber_qa","","");
+end
+
+rule "umg.mediaportal.panddreleaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.mediaportal_panddreleaseschedule_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.mediaportal" && p.resourceName == "panddreleaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.mediaportal_panddreleaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.mediaportal_panddreleaseschedule_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_pandd_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_pandd_subscriber_qa","","");
+end
+
+rule "umg.milestone.usphysicalreleaseschedulereferencedata.http://schemas.umusic.com/servicemarket/ohi_umg.milestone_usphysicalreleaseschedulereferencedata_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.milestone" && p.resourceName == "usphysicalreleaseschedulereferencedata" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.milestone_usphysicalreleaseschedulereferencedata_1_detail/19570825" && p.DocumentName == "ohi_umg.milestone_usphysicalreleaseschedulereferencedata_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "umg.milestone.usphysicalreleaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.milestone_usphysicalreleaseschedule_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.milestone" && p.resourceName == "usphysicalreleaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.milestone_usphysicalreleaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.milestone_usphysicalreleaseschedule_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+end
+
+rule "umg.mobile.proxy.resourceavailabilitynotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.mobile.proxy" && p.resourceName == "resourceavailabilitynotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_zeus_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_d2_subscriber","resourceavailablenotificationmapper","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_rav_subscriber_qa","","");
+end
+
+rule "umg.pricing.gps.releaseprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "releaseprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_releaseprice_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_customorchestration","gpsreleasepricedetailtogpsreleasepricenotificationmapper","");
+end
+
+rule "umg.pricing.gps.releaseprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825.pubsubwrapped (filtered 5)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "releaseprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_releaseprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.GpsReleasePriceRegion == "na" && ( p.SubscriberFilterValue == "umg" || p.SubscriberFilterValue == "multicompany")))
+then
+$enterpriseMessageRoute.addRoute("umg_zeus_subscriber","","");
+end
+
+rule "umg.pricing.gps.releaseprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825.pubsubwrapped (filtered 6)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "releaseprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_releaseprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.GpsReleasePriceRegion == "intl" && ( p.SubscriberFilterValue == "umg" || p.SubscriberFilterValue == "multicompany")))
+then
+$enterpriseMessageRoute.addRoute("umg_dsc_subscriber","","");
+end
+
+rule "umg.pricing.gps.releaseprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825.pubsubwrapped (filtered 7)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "releaseprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_releaseprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.SubscriberFilterValue == "umg" || p.SubscriberFilterValue == "multicompany"))
+then
+$enterpriseMessageRoute.addRoute("umg_digs_gps_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_gps_subscriber_qa","","");
+end
+
+rule "umg.pricing.gps.releaseprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825.pubsubwrapped (filtered 8)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "releaseprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_releaseprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_releaseprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.SubscriberFilterValue == "multicompany" || p.SubscriberFilterValue == "emi"))
+then
+$enterpriseMessageRoute.addRoute("sonydadc_gps_subscriber","","");
+end
+
+rule "umg.pricing.gps.resourceprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_resourceprice_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "resourceprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_resourceprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_resourceprice_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_customorchestration","gpsresourcepricedetailtogpsresourcepricenotificationmapper","");
+end
+
+rule "umg.pricing.gps.resourceprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_resourceprice_1_detail/19570825.pubsubwrapped (filtered 9)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "resourceprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_resourceprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_resourceprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.Region == "na"))
+then
+$enterpriseMessageRoute.addRoute("umg_zeus_subscriber","","");
+end
+
+rule "umg.pricing.gps.resourceprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_resourceprice_1_detail/19570825.pubsubwrapped (filtered 10)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "resourceprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_resourceprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_resourceprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.Region == "intl"))
+then
+$enterpriseMessageRoute.addRoute("umg_dsc_subscriber","","");
+end
+
+rule "umg.pricing.gps.resourceprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_resourceprice_1_detail/19570825.pubsubwrapped (filtered 11)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "resourceprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_resourceprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_resourceprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.SubscriberFilterValue == "multicompany" || p.SubscriberFilterValue == "emi"))
+then
+$enterpriseMessageRoute.addRoute("sonydadc_gps_subscriber","","");
+end
+
+rule "umg.pricing.gps.trackprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_trackprice_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "trackprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_trackprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_trackprice_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_customorchestration","gpstrackpricedetailtogpstrackpricenotificationmapper","");
+end
+
+rule "umg.pricing.gps.trackprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_trackprice_1_detail/19570825.pubsubwrapped (filtered 12)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "trackprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_trackprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_trackprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.GpsTrackPriceRegion == "na" && (p.SubscriberFilterValue == "umg" || p.SubscriberFilterValue == "multicompany")))
+then
+$enterpriseMessageRoute.addRoute("umg_zeus_subscriber","","");
+end
+
+rule "umg.pricing.gps.trackprice.http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_trackprice_1_detail/19570825.pubsubwrapped (filtered 13)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.pricing.gps" && p.resourceName == "trackprice" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.pricing.gps_trackprice_1_detail/19570825" && p.DocumentName == "ohi_umg.pricing.gps_trackprice_1_notification" && p.msgVariant == "pubsubwrapped" && (p.SubscriberFilterValue == "multicompany" || p.SubscriberFilterValue == "emi"))
+then
+$enterpriseMessageRoute.addRoute("sonydadc_gps_subscriber","","");
+end
+
+rule "umg.r2.pccompany.http://schemas.umusic.com/servicemarket/ohi_umg.r2_pccompany_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "pccompany" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_pccompany_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_pccompany_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcstraining_subscriber","","");
+end
+
+rule "umg.r2.project.http://schemas.umusic.com/servicemarket/ohi_umg.r2_project_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "project" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_project_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_project_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcstraining_subscriber","","");
+end
+
+rule "umg.r2.role.http://schemas.umusic.com/servicemarket/ohi_umg.r2_role_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "role" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_role_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_role_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.release.http://schemas.umusic.com/servicemarket/ohi_umg.r2_release_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "release" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_release_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_release_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_r2_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+$enterpriseMessageRoute.addRoute("umg_grcstraining_subscriber","","");
+end
+
+rule "umg.r2.releaselocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "releaselocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_releaselocal_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_r2_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+end
+
+rule "umg.r2.resource.http://schemas.umusic.com/servicemarket/ohi_umg.r2_resource_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "resource" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_resource_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_resource_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_r2_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+$enterpriseMessageRoute.addRoute("umg_grcstraining_subscriber","","");
+end
+
+rule "umg.r2.talentname.http://schemas.umusic.com/servicemarket/ohi_umg.r2_talentname_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "talentname" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_talentname_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_talentname_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_r2_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+$enterpriseMessageRoute.addRoute("umg_grcstraining_subscriber","","");
+end
+
+rule "umg.r2.controldata.http://schemas.umusic.com/servicemarket/ohi_umg.r2_controldata_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "controldata" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_controldata_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_controldata_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+end
+
+rule "umg.r2.translationentity.http://schemas.umusic.com/servicemarket/ohi_umg.r2_translationentity_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "translationentity" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_translationentity_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_translationentity_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_r2_subscriber_qa","","");
+end
+
+rule "umg.r2.jpreleaselan.http://schemas.umusic.com/servicemarket/ohi_umg.r2_jpreleaselan_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "jpreleaselan" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_jpreleaselan_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_jpreleaselan_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_r2_subscriber_qa","","");
+end
+
+rule "umg.r2.jpresource.http://schemas.umusic.com/servicemarket/ohi_umg.r2_jpresource_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "jpresource" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_jpresource_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_jpresource_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.work.http://schemas.umusic.com/servicemarket/ohi_umg.r2_work_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "work" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_work_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_work_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.location.http://schemas.umusic.com/servicemarket/ohi_umg.r2_location_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "location" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_location_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_location_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.publishingcompany.http://schemas.umusic.com/servicemarket/ohi_umg.r2_publishingcompany_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "publishingcompany" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_publishingcompany_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_publishingcompany_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.productioncompany.http://schemas.umusic.com/servicemarket/ohi_umg.r2_productioncompany_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "productioncompany" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_productioncompany_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_productioncompany_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.financialdataupc.http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataupc_1_detail/19570825.pubsubwrapped (filtered 15)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "financialdataupc" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataupc_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_financialdataupc_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.financialdataisrc.http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataisrc_1_detail/19570825.pubsubwrapped (filtered 16)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "financialdataisrc" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataisrc_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_financialdataisrc_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.worklocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_worklocal_1_detail/19570825.pubsubwrapped (filtered 17)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "worklocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_worklocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_worklocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.translation.http://schemas.umusic.com/servicemarket/ohi_umg.r2_translation_1_detail/19570825.pubsubwrapped (filtered 18)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "translation" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_translation_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_translation_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.releaselocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825.pubsubwrapped (filtered 19)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "releaselocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_releaselocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.resourcelocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_resourcelocal_1_detail/19570825.pubsubwrapped (filtered 20)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "resourcelocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_resourcelocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_resourcelocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+then
+$enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
+end
+
+rule "umg.r2.releaselocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825.pubsubwrapped (filtered 21)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "releaselocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_releaselocal_1_detail" && p.msgVariant == "pubsubwrapped" && (p.R2OriginatingIndicator == "y"))
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcstraining_subscriber","","");
+end
+
+rule "umg.r2.resourcelocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_resourcelocal_1_detail/19570825.pubsubwrapped (filtered 22)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "resourcelocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_resourcelocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_resourcelocal_1_detail" && p.msgVariant == "pubsubwrapped" && (p.R2ResLocalOriginatingIndicator == "y"))
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcstraining_subscriber","","");
+end
+
+rule "umg.r2.releaseorderednotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "releaseorderednotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber_qa","","");
+end
+
+rule "umg.r2.resourceavailabilitynotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "resourceavailabilitynotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+end
+
+rule "umg.r2.translation.http://schemas.umusic.com/servicemarket/ohi_umg.r2_translation_1_detail/19570825.pubsubwrapped (filtered 23)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "translation" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_translation_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_translation_1_detail" && p.msgVariant == "pubsubwrapped" && (p.R2TranlationCountryId == "jp" && p.R2TranlationLanguageNo ==11))
+then
+$enterpriseMessageRoute.addRoute("umg_digs_r2_subscriber_qa","","");
+end
+
+rule "umg.sap.legalentity.http://schemas.umusic.com/servicemarket/ohi_umg.sap_legalentity_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.sap" && p.resourceName == "legalentity" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.sap_legalentity_1_detail/19570825" && p.DocumentName == "ohi_umg.sap_legalentity_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_gta_subscriber","","");
+end
+
+rule "umg.sap.profitcenter.http://schemas.umusic.com/servicemarket/ohi_umg.sap_profitcenter_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.sap" && p.resourceName == "profitcenter" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.sap_profitcenter_1_detail/19570825" && p.DocumentName == "ohi_umg.sap_profitcenter_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_gta_subscriber","","");
+end
+
+rule "umg.sap.segment.http://schemas.umusic.com/servicemarket/ohi_umg.sap_segment_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.sap" && p.resourceName == "segment" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.sap_segment_1_detail/19570825" && p.DocumentName == "ohi_umg.sap_segment_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_gta_subscriber","","");
+end
+
+rule "studiohub.ingestrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "ingestrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_aspen_rest_subscriber","","true");
+end
+
+rule "studiohub.grsresourcerightsload.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "grsresourcerightsload" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber_qa","","");
+end
+
+rule "sonydadc.releasestatusnotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "releasestatusnotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","","");
+end
+
+rule "studiohub.masterreleasenotificationmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "masterreleasenotificationmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_disco_masterrelease_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_disco_masterrelease_subscriber_demo","","true");
+end
+
+rule "studiohub.repertoireresourcenotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "repertoireresourcenotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "umg.gta.financiallabel.http://schemas.umusic.com/servicemarket/ohi_umg.gta_financiallabel_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.gta" && p.resourceName == "financiallabel" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.gta_financiallabel_1_detail/19570825" && p.DocumentName == "ohi_umg.gta_financiallabel_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_gch_gta_subscriber","gta_financiallabelmapper","true");
+end
+
+rule "gta.saleschannel.http://schemas.umusic.com/servicemarket/ohi_gta_saleschannel_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gta" && p.resourceName == "saleschannel" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_gta_saleschannel_1_detail/19570825" && p.DocumentName == "ohi_gta_saleschannel_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_gch_gta_subscriber","gta_saleschannelmapper","true");
+end
+
+rule "umg.cprs.physicalreleaseschedulev3.AllNamespaces.emasis"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "physicalreleaseschedulev3" && p.msgVariant == "emasis")
+then
+$enterpriseMessageRoute.addRoute("avarto_cprs_subscriber","","");
+end
+
+rule "umg.cprs.territorialrights.AllNamespaces.emasis"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "territorialrights" && p.msgVariant == "emasis")
+then
+$enterpriseMessageRoute.addRoute("avarto_cprs_subscriber","","");
+end
+
+rule "umg.mediaportal.grsresourcerightsload.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.mediaportal" && p.resourceName == "grsresourcerightsload" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber_qa","","");
+end
+
+rule "bitmax.digitalassetupdatenotificationmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "bitmax" && p.resourceName == "digitalassetupdatenotificationmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber_demo","","true");
+end
+
+rule "umg.r2.externalkey.http://schemas.umusic.com/servicemarket/ohi_umg.r2_externalkey_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "externalkey" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_externalkey_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_externalkey_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
+end
+

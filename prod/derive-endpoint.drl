@@ -1,0 +1,15 @@
+rule "APIGATEWAY OUTBOUND TO PUB SUB JMS QUEUE"
+dialect "mvel"
+when
+$enterpriseMessageRoute : EnterpriseMessageRoute(logicalTarget == null && (((source == "aspen" && (resourceName=="ingestresponsemessage" || resourceName=="fulfillmentresponsemessage" || resourceName=="digitalassetupdateresponsemessage" || resourceName=="digitalassetupdatenotificationmessage" || resourceName=="digitalassetmessage")) || (source == "dartaggregator" && (resourceName=="dartcprsreleaseschedule")) || (source == "gps" && (resourceName=="globalreleasepricemessage" || resourceName=="globalresourcepricemessage")) || (source == "metadataservices" && (resourceName=="audioregistrationresponsemessage" || resourceName=="imageregistrationresponsemessage")) || (source == "rws" && (resourceName=="imageregistrationrequestmessage")) || (source == "sonydadc" && (resourceName=="supplychainstatusmessage" || resourceName=="releasestatusnotification")) || (source == "studiohub" && (resourceName=="grscontractrightsload" || resourceName=="dealoperatingparametersmessage" || resourceName=="fulfillmentrequestmessage" || resourceName=="digitalassetupdaterequestmessage" || resourceName=="dealproductroyaltyprovisionsmessage" || resourceName=="defaultreleasepricingrequestmessage" || resourceName=="resourceregistrationrequestmessage" || resourceName=="dealcontractuallanguagemessage" || resourceName=="audioregistrationrequestmessage" || resourceName=="ingestrequestmessage" || resourceName=="grsresourcerightsload" || resourceName=="repertoireresourcenotification")) || (source == "umg.blue" && (resourceName=="resourcedurationupdatenotification" || resourceName=="japancompanynotification")) || (source == "umg.cprs" && (resourceName=="billofmaterials" || resourceName=="physicalreleaseschedulev3")))))
+then
+EnterpriseMessageRouteProps $enterpriseMessageRouteProps = new EnterpriseMessageRouteProps();
+$enterpriseMessageRouteProps.setExchangePattern(MessageExchangePattern.ONE_WAY);
+$enterpriseMessageRouteProps.setEndpointType("JMS");
+$enterpriseMessageRouteProps.setMessageFormat("SIFT-XML");
+$enterpriseMessageRouteProps.setAddress("inbound.pubsub.Receive");
+$enterpriseMessageRouteProps.setJmsxGroupId($enterpriseMessageRoute.getMessageId());
+List $enterpriseMessageRoutePropsList = new ArrayList();
+$enterpriseMessageRoutePropsList.add($enterpriseMessageRouteProps);
+$enterpriseMessageRoute.setEnterpriseMessageRoutePropsList($enterpriseMessageRoutePropsList);
+end

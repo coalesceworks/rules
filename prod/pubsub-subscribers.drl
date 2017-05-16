@@ -1,0 +1,246 @@
+package com.umgi.es.pubsub.drools;
+
+import com.umgi.es.pubsub.drools.EnterpriseMessageRoute;
+import com.umgi.es.pubsub.drools.EnterpriseMessageRouteProps;
+import java.util.List;
+
+global org.mule.module.bpm.MessageService mule;
+
+rule "aspen.ingestresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "ingestresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "aspen.fulfillmentresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "fulfillmentresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "aspen.digitalassetupdateresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdateresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "aspen.digitalassetupdatenotificationmessage.AllNamespaces.raw (filtered 0)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdatenotificationmessage" && p.msgVariant == "raw" && (p.ReplyTo == "studiohub"))
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "aspen.digitalassetmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "dartaggregator.dartcprsreleaseschedule.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "dartaggregator" && p.resourceName == "dartcprsreleaseschedule" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_dart_subscriber","","true");
+end
+
+rule "gps.globalreleasepricemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gps" && p.resourceName == "globalreleasepricemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_disco_pricing_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_dsc_subscriber","","");
+end
+
+rule "gps.globalresourcepricemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gps" && p.resourceName == "globalresourcepricemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_disco_pricing_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_dsc_subscriber","","");
+end
+
+rule "metadataservices.audioregistrationresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "metadataservices" && p.resourceName == "audioregistrationresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "metadataservices.imageregistrationresponsemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "metadataservices" && p.resourceName == "imageregistrationresponsemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "rws.imageregistrationrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "rws" && p.resourceName == "imageregistrationrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "sonydadc.supplychainstatusmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "supplychainstatusmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "studiohub.grscontractrightsload.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "grscontractrightsload" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+end
+
+rule "studiohub.dealoperatingparametersmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "dealoperatingparametersmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
+rule "studiohub.fulfillmentrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "fulfillmentrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_aspen_rest_subscriber","","true");
+end
+
+rule "studiohub.digitalassetupdaterequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "digitalassetupdaterequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_aspen_rest_subscriber","","true");
+end
+
+rule "studiohub.dealproductroyaltyprovisionsmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "dealproductroyaltyprovisionsmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_globalroyalties_subscriber","","true");
+$enterpriseMessageRoute.addRoute("umg_rdw_subscriber","","true");
+end
+
+rule "studiohub.defaultreleasepricingrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "defaultreleasepricingrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "studiohub.resourceregistrationrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "resourceregistrationrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "studiohub.dealcontractuallanguagemessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "dealcontractuallanguagemessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_rdw_subscriber","","true");
+end
+
+rule "studiohub.audioregistrationrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "audioregistrationrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "umg.blue.resourcedurationupdatenotification.http://schemas.umusic.com/servicemarket/ohi_umg.blue_resourcedurationupdatenotification_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.blue" && p.resourceName == "resourcedurationupdatenotification" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.blue_resourcedurationupdatenotification_1_detail/19570825" && p.DocumentName == "ohi_umg.blue_resourcedurationupdatenotification_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+end
+
+rule "umg.blue.japancompanynotification.http://schemas.umusic.com/servicemarket/ohi_umg.blue_japancompanynotification_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.blue" && p.resourceName == "japancompanynotification" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.blue_japancompanynotification_1_detail/19570825" && p.DocumentName == "ohi_umg.blue_japancompanynotification_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+end
+
+rule "umg.cprs.billofmaterials.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_billofmaterials_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "billofmaterials" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_billofmaterials_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_billofmaterials_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_berlin_cprs_bom_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sony_dadc_distribution","","");
+end
+
+rule "umg.cprs.physicalreleaseschedulev3.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicalreleaseschedulev3_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "physicalreleaseschedulev3" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicalreleaseschedulev3_1_detail/19570825" && p.DocumentName == "ohi_umg.cprs_physicalreleaseschedulev3_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_berlin_cprs_prs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_jda_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sony_dadc_distribution","","");
+$enterpriseMessageRoute.addRoute("umg_sap_cprs_subscriber","","");
+end
+
+rule "umg.dsched.releaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825.pubsubwrapped"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dsched" && p.resourceName == "releaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.dsched_releaseschedule_1_detail" && p.msgVariant == "pubsubwrapped")
+then
+$enterpriseMessageRoute.addRoute("umg_berlin_digs_subscriber","","");
+end
+
+rule "studiohub.ingestrequestmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "ingestrequestmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_aspen_rest_subscriber","","true");
+end
+
+rule "studiohub.grsresourcerightsload.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "grsresourcerightsload" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_grcs_subscriber","","");
+end
+
+rule "sonydadc.releasestatusnotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "releasestatusnotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","","");
+end
+
+rule "studiohub.repertoireresourcenotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "repertoireresourcenotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_metadataservices_subscriber","","true");
+end
+
+rule "umg.cprs.physicalreleaseschedulev3.AllNamespaces.emasis"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "physicalreleaseschedulev3" && p.msgVariant == "emasis")
+then
+$enterpriseMessageRoute.addRoute("avarto_cprs_subscriber","","");
+end
+
+rule "umg.cprs.territorialrights.AllNamespaces.emasis"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "territorialrights" && p.msgVariant == "emasis")
+then
+$enterpriseMessageRoute.addRoute("avarto_cprs_subscriber","","");
+end
+
+rule "aspen.digitalassetupdatenotificationmessage.AllNamespaces.raw (filtered 1)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdatenotificationmessage" && p.msgVariant == "raw" && (p.ReplyTo == "rws"))
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
+
