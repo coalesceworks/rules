@@ -714,7 +714,6 @@ rule "umg.dav.marketingtermspartnerproductupdatenotification.AllNamespaces.raw"
 dialect "mvel"
 when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dav" && p.resourceName == "marketingtermspartnerproductupdatenotification" && p.msgVariant == "raw")
 then
-$enterpriseMessageRoute.addRoute("umg_gdrs_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_centralcatalogue_marketing_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_digs_mktgpartner_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_digs_mktgpartner_subscriber_qa","","");
@@ -724,7 +723,6 @@ rule "umg.dav.marketingtermsproductupdatenotification.AllNamespaces.raw"
 dialect "mvel"
 when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dav" && p.resourceName == "marketingtermsproductupdatenotification" && p.msgVariant == "raw")
 then
-$enterpriseMessageRoute.addRoute("umg_gdrs_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_digs_mktgproduct_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_digs_mktgproduct_subscriber_qa","","");
 end
