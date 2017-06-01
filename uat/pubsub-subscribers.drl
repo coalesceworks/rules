@@ -1282,14 +1282,14 @@ rule "umg.cprs.physicalreleaseschedulev3.AllNamespaces.emasis"
 dialect "mvel"
 when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "physicalreleaseschedulev3" && p.msgVariant == "emasis")
 then
-$enterpriseMessageRoute.addRoute("avarto_cprs_subscriber","","");
+$enterpriseMessageRoute.addRoute("avarto_cprs_subscriber_uat","","");
 end
 
 rule "umg.cprs.territorialrights.AllNamespaces.emasis"
 dialect "mvel"
 when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.cprs" && p.resourceName == "territorialrights" && p.msgVariant == "emasis")
 then
-$enterpriseMessageRoute.addRoute("avarto_cprs_subscriber","","");
+$enterpriseMessageRoute.addRoute("avarto_cprs_subscriber_uat","","");
 end
 
 rule "umg.mediaportal.grsresourcerightsload.AllNamespaces.raw"
