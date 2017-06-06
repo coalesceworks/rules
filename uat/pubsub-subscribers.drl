@@ -213,7 +213,7 @@ $enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_countrymapper","");
 $enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","gta_countrymapper","");
 $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_countrymapper","");
 $enterpriseMessageRoute.addRoute("umg_gch_gta_subscriber","gta_countrymapper","true");
-$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_country_raw_mapper","true");
+$enterpriseMessageRoute.addRoute("disco_gta_subscriber","gta_country_raw_mapper","true");
 end
 
 rule "gta.currency.http://schemas.umusic.com/servicemarket/ohi_gta_currency_1_detail/19570825.pubsubwrapped"
@@ -239,7 +239,7 @@ $enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_territorymapper","")
 $enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_territorymapper","");
 $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","","");
-$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_territory_raw_mapper","true");
+$enterpriseMessageRoute.addRoute("disco_gta_subscriber","gta_territory_raw_mapper","true");
 end
 
 rule "gta.territoryarea.http://schemas.umusic.com/servicemarket/ohi_gta_territoryarea_1_detail/19570825.pubsubwrapped"
@@ -260,7 +260,7 @@ $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_territorycountry
 $enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_territorycountrymapper","");
 $enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_territorycountrymapper","");
 $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_territorycountrymapper","");
-$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_territorycountry_raw_mapper","true");
+$enterpriseMessageRoute.addRoute("disco_gta_subscriber","gta_territorycountry_raw_mapper","true");
 end
 
 rule "gto.company.http://schemas.umusic.com/servicemarket/ohi_gto_company_1_detail/19570825.pubsubwrapped"
@@ -273,7 +273,7 @@ $enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_companymapper","");
 $enterpriseMessageRoute.addRoute("umg_d2_subscriber","gta_companymapper","");
 $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_companymapper","");
 $enterpriseMessageRoute.addRoute("umg_gch_gta_subscriber","gta_companymapper","true");
-$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_company_raw_mapper","true");
+$enterpriseMessageRoute.addRoute("disco_gta_subscriber","gta_company_raw_mapper","true");
 end
 
 rule "gto.companydivision.http://schemas.umusic.com/servicemarket/ohi_gto_companydivision_1_detail/19570825.pubsubwrapped"
@@ -284,7 +284,7 @@ $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_companydivisionm
 $enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_companydivisionmapper","");
 $enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_companydivisionmapper","");
 $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_companydivisionmapper","");
-$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_companydivision_raw_mapper","true");
+$enterpriseMessageRoute.addRoute("disco_gta_subscriber","gta_companydivision_raw_mapper","true");
 end
 
 rule "gto.divisionlabel.http://schemas.umusic.com/servicemarket/ohi_gto_divisionlabel_1_detail/19570825.pubsubwrapped"
@@ -295,7 +295,7 @@ $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber","gta_divisionlabelmap
 $enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_divisionlabelmapper","");
 $enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_divisionlabelmapper","");
 $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_divisionlabelmapper","");
-$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_divisionlabel_raw_mapper","true");
+$enterpriseMessageRoute.addRoute("disco_gta_subscriber","gta_divisionlabel_raw_mapper","true");
 end
 
 rule "gto.family.http://schemas.umusic.com/servicemarket/ohi_gto_family_1_detail/19570825.pubsubwrapped"
@@ -325,7 +325,7 @@ $enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","gta_labelmapper
 $enterpriseMessageRoute.addRoute("umg_grcs_subscriber","gta_labelmapper","");
 $enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","gta_labelmapper","");
 $enterpriseMessageRoute.addRoute("umg_digs_gta_subscriber_qa","gta_labelmapper","");
-$enterpriseMessageRoute.addRoute("disco_cla_subscriber","gta_label_raw_mapper","true");
+$enterpriseMessageRoute.addRoute("disco_gta_subscriber","gta_label_raw_mapper","true");
 end
 
 rule "gto.company.AllNamespaces.emasis"
@@ -1127,42 +1127,42 @@ end
 
 rule "umg.r2.financialdataupc.http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataupc_1_detail/19570825.pubsubwrapped (filtered 15)"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "financialdataupc" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataupc_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_financialdataupc_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "financialdataupc" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataupc_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_financialdataupc_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country == "jp") || p.action == "deleted"))
 then
 $enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
 end
 
 rule "umg.r2.financialdataisrc.http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataisrc_1_detail/19570825.pubsubwrapped (filtered 16)"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "financialdataisrc" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataisrc_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_financialdataisrc_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "financialdataisrc" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_financialdataisrc_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_financialdataisrc_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country == "jp") || p.action == "deleted"))
 then
 $enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
 end
 
 rule "umg.r2.worklocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_worklocal_1_detail/19570825.pubsubwrapped (filtered 17)"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "worklocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_worklocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_worklocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "worklocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_worklocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_worklocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country == "jp") || p.action == "deleted"))
 then
 $enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
 end
 
 rule "umg.r2.translation.http://schemas.umusic.com/servicemarket/ohi_umg.r2_translation_1_detail/19570825.pubsubwrapped (filtered 18)"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "translation" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_translation_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_translation_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "translation" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_translation_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_translation_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country == "jp") || p.action == "deleted"))
 then
 $enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
 end
 
 rule "umg.r2.releaselocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825.pubsubwrapped (filtered 19)"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "releaselocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_releaselocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "releaselocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_releaselocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_releaselocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2OrgStructureCountry == "jp") || p.action == "deleted"))
 then
 $enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
 end
 
 rule "umg.r2.resourcelocal.http://schemas.umusic.com/servicemarket/ohi_umg.r2_resourcelocal_1_detail/19570825.pubsubwrapped (filtered 20)"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "resourcelocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_resourcelocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_resourcelocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2Country2 == "jp") || p.action == "deleted"))
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.r2" && p.resourceName == "resourcelocal" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.r2_resourcelocal_1_detail/19570825" && p.DocumentName == "ohi_umg.r2_resourcelocal_1_detail" && p.msgVariant == "pubsubwrapped" && ((p.R2OrgStructureCountry == "jp") || p.action == "deleted"))
 then
 $enterpriseMessageRoute.addRoute("umg_musicgadget_subscriber","","");
 end
