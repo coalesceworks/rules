@@ -1250,9 +1250,9 @@ $enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","","");
 end
 
-rule "studiohub.masterreleasenotificationmessage.AllNamespaces.raw (filtered 24)"
+rule "studiohub.masterreleasenotificationmessage.AllNamespaces.raw"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "masterreleasenotificationmessage" && p.msgVariant == "raw" && (p.nrmUserDefinedValue != null))
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "masterreleasenotificationmessage" && p.msgVariant == "raw")
 then
 $enterpriseMessageRoute.addRoute("umg_disco_masterrelease_subscriber","","true");
 $enterpriseMessageRoute.addRoute("umg_disco_masterrelease_subscriber_demo","","true");

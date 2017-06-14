@@ -6,6 +6,12 @@ import java.util.List;
 
 global org.mule.module.bpm.MessageService mule;
 
+rule "aic.physicalassetmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aic" && p.resourceName == "physicalassetmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
+end
 rule "aspen.ingestresponsemessage.AllNamespaces.raw"
 dialect "mvel"
 when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "ingestresponsemessage" && p.msgVariant == "raw")
@@ -62,6 +68,12 @@ when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "gps" &
 then
 $enterpriseMessageRoute.addRoute("umg_disco_pricing_subscriber","","true");
 $enterpriseMessageRoute.addRoute("umg_dsc_subscriber","","");
+end
+rule "hits.hitstranslationmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "hits" && p.resourceName == "hitstranslationmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_rdw_subscriber","","true");
 end
 
 rule "metadataservices.audioregistrationresponsemessage.AllNamespaces.raw"
@@ -189,6 +201,14 @@ $enterpriseMessageRoute.addRoute("umg_sony_dadc_distribution","","");
 $enterpriseMessageRoute.addRoute("umg_sap_cprs_prs_subscriber","","");
 end
 
+rule "sonydadc.releaseorderednotification.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "sonydadc" && p.resourceName == "releaseorderednotification" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_r2_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_gps_firstorder_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","releasestatusmapper_releaseordered2releasestatus","");
+end
 rule "umg.dsched.releaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825.pubsubwrapped"
 dialect "mvel"
 when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "umg.dsched" && p.resourceName == "releaseschedule" && p.NameSpace == "http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825" && p.DocumentName == "ohi_umg.dsched_releaseschedule_1_detail" && p.msgVariant == "pubsubwrapped")
