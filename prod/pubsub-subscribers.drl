@@ -186,7 +186,7 @@ then
 $enterpriseMessageRoute.addRoute("umg_berlin_cprs_prs_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_jda_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_sony_dadc_distribution","","");
-$enterpriseMessageRoute.addRoute("umg_sap_cprs_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_sap_cprs_prs_subscriber","","");
 end
 
 rule "umg.dsched.releaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.dsched_releaseschedule_1_detail/19570825.pubsubwrapped"
