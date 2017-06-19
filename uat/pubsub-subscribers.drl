@@ -1250,9 +1250,9 @@ $enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_digs_relstatus_subscriber_qa","","");
 end
 
-rule "studiohub.masterreleasenotificationmessage.AllNamespaces.raw"
+rule "studiohub.masterreleasenotificationmessage.AllNamespaces.raw (filtered 24)"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "masterreleasenotificationmessage" && p.msgVariant == "raw")
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "masterreleasenotificationmessage" && p.msgVariant == "raw" && (p.nrmUserDefinedValue != null && p.nrmUserDefinedValue != ""))
 then
 $enterpriseMessageRoute.addRoute("umg_disco_masterrelease_subscriber","","true");
 $enterpriseMessageRoute.addRoute("umg_disco_masterrelease_subscriber_demo","","true");
@@ -1317,3 +1317,9 @@ $enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber_dev","","");
 $enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
 end
 
+rule "aspen.digitalassetupdatenotificationmessage.AllNamespaces.raw (filtered 30)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdatenotificationmessage" && p.msgVariant == "raw" && (p.AssetMediaType == "image" && p.ReplyTo == "rws"))
+then
+$enterpriseMessageRoute.addRoute("bitmax_rest_subscriber","","true");
+end
