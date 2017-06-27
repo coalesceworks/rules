@@ -1330,4 +1330,5 @@ when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studio
 then
 $enterpriseMessageRoute.addRoute("umg_digs_tougsc_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_digs_tougsc_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("umg_digsreporting_subscriber","","");
 end
