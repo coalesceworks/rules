@@ -551,7 +551,6 @@ dialect "mvel"
 when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "dealcontractuallanguagemessage" && p.msgVariant == "raw")
 then
 $enterpriseMessageRoute.addRoute("umg_rdw_subscriber","","true");
-$enterpriseMessageRoute.addRoute("umg_globalroyalties_subscriber","","true");
 end
 
 rule "studiohub.audioregistrationrequestmessage.AllNamespaces.raw"
@@ -646,6 +645,7 @@ $enterpriseMessageRoute.addRoute("umg_uk_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_sap_cprs_bom_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_sony_dadc_distribution","","");
 $enterpriseMessageRoute.addRoute("umg_sap_cprs_bom_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("umg_sap_cprs_bom_subscriber_fcq","","");
 end
 
 rule "umg.cprs.physicalreleaseschedule.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_physicalreleaseschedule_1_detail/19570825.pubsubwrapped"
@@ -670,6 +670,7 @@ $enterpriseMessageRoute.addRoute("umg_jda_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_sony_dadc_distribution","","");
 $enterpriseMessageRoute.addRoute("umg_sap_cprs_prs_subscriber","","");
 $enterpriseMessageRoute.addRoute("umg_sap_cprs_prs_subscriber_qa","","");
+$enterpriseMessageRoute.addRoute("umg_sap_cprs_prs_subscriber_fcq","","");
 end
 
 rule "umg.cprs.territorialrights.http://schemas.umusic.com/servicemarket/ohi_umg.cprs_territorialrights_1_detail/19570825.pubsubwrapped"
@@ -1322,4 +1323,11 @@ dialect "mvel"
 when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdatenotificationmessage" && p.msgVariant == "raw" && (p.AssetMediaType == "image" && p.ReplyTo == "rws"))
 then
 $enterpriseMessageRoute.addRoute("bitmax_rest_subscriber","","true");
+end
+rule "studiohub.dealsupdatenotificationmessage.AllNamespaces.raw"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "dealsupdatenotificationmessage" && p.msgVariant == "raw")
+then
+$enterpriseMessageRoute.addRoute("umg_digs_tougsc_subscriber","","");
+$enterpriseMessageRoute.addRoute("umg_digs_tougsc_subscriber_qa","","");
 end
