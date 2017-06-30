@@ -267,3 +267,9 @@ then
 $enterpriseMessageRoute.addRoute("umg_lpi_subscriber","","true");
 end
 
+rule "aspen.digitalassetupdatenotificationmessage.AllNamespaces.raw (filtered 2)"
+dialect "mvel"
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "aspen" && p.resourceName == "digitalassetupdatenotificationmessage" && p.msgVariant == "raw" && (p.AssetMediaType == "image" && p.ReplyTo == "rws"))
+then
+$enterpriseMessageRoute.addRoute("bitmax_rest_subscriber","","true");
+end

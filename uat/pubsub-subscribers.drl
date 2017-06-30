@@ -1253,7 +1253,7 @@ end
 
 rule "studiohub.masterreleasenotificationmessage.AllNamespaces.raw (filtered 24)"
 dialect "mvel"
-when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "masterreleasenotificationmessage" && p.msgVariant == "raw" && (p.nrmUserDefinedValue != null && p.nrmUserDefinedValue != ""))
+when $enterpriseMessageRoute : EnterpriseMessageRoute(p.messageSource == "studiohub" && p.resourceName == "masterreleasenotificationmessage" && p.msgVariant == "raw" && (p.NRMUserDefinedValuePublishedDate != null && p.NRMUserDefinedValuePublishedDate != ""))
 then
 $enterpriseMessageRoute.addRoute("umg_disco_masterrelease_subscriber","","true");
 $enterpriseMessageRoute.addRoute("umg_disco_masterrelease_subscriber_demo","","true");
